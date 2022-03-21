@@ -5,12 +5,15 @@
 
 int main(int argc, char **argv) {
     std::cout << "Example 1: Start" << std::endl;
-    zero_profile::detail::invoke + []() {
-        std::cout << "\tstart invoke>>>" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(1313));
-        std::cout << "\t<<<end invoke" << std::endl;
-    };
-    
+
+    zero_profile::profile p(10);
+    for (int i = 0; i < 100; i++) {
+        p([&]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(13));
+        });
+    }
+
     std::cout << "Example 1: End" << std::endl;
+
     return 1;
 }
